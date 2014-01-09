@@ -16,3 +16,11 @@ CONT=$(docker run -d fdb/sql-layer)
 # (wait a bit)
 fdbsqlcli -h $(docker inspect -format='{{.NetworkSettings.IPAddress}}' $CONT)
 ```
+
+or (more Vagrant-friendly)
+
+```bash
+docker run -d -p 49432:15432 fdb/sql-layer
+# (wait a bit)
+fdbsqlcli -p 49432
+```
