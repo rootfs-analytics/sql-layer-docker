@@ -24,3 +24,11 @@ docker run -d -p 49432:15432 fdb/sql-layer
 # (wait a bit)
 fdbsqlcli -p 49432
 ```
+
+## PHP ##
+
+```bash
+docker build -t fdb/lefp lefp
+docker run -name phpsql -d fdb/sql-layer
+docker run -d -p 49080:80 -link phpsql:fdbsql fdb/lefp
+```
