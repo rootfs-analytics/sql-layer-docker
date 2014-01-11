@@ -1,0 +1,26 @@
+# Doctrine-DBAL-PHPUnit: run unit tests for Doctrine adapter.
+
+FROM fdb/fdb-client
+
+MAINTAINER "fdb-boston@foundationdb.com"
+
+RUN echo "deb http://archive.ubuntu.com/ubuntu/ precise universe" >> /etc/apt/sources.list
+RUN apt-get update && apt-get -y upgrade
+
+RUN apt-get -y install php5-cli php-pear php5-pgsql php5-sqlite
+
+RUN pear channel-discover pear.phpunit.de
+RUN pear channel-discover pear.symfony.com
+RUN pear install --alldeps pear.phpunit.de/PHPUnit
+
+ADD https://getcomposer.org/installer /tmp/
+RUN php </tmp/installer
+RUN mv composer.phar /usr/local/bin/composer
+
+RUN apt-get -y install git
+RUN git clone -b fdbsql https://github.com/MMcM/dbal.git
+
+RUN cd dbal && composer update
+ADD fdbsql.phpunit.xml dbal/
+
+CMD cd dbal && sed -i -e "s/localhost/$FDBSQL_PORT_15432_TCP_ADDR/g" fdbsql.phpunit.xml && phpunit -c fdbsql.phpunit.xml

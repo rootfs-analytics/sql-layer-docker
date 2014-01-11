@@ -32,3 +32,10 @@ docker build -t fdb/lefp lefp
 docker run -name phpsql -d fdb/sql-layer
 docker run -d -p 49080:80 -link phpsql:fdbsql fdb/lefp
 ```
+
+### Doctrine DBAL PHPUnit ###
+
+```bash
+docker build -t dbal-test doctrine-dbal-phpunit
+docker run -link phpsql:fdbsql dbal-test
+```
