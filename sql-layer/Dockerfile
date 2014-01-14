@@ -6,11 +6,11 @@ MAINTAINER "fdb-boston@foundationdb.com"
 
 ADD fdb.cluster /etc/foundationdb/
 
-ADD https://foundationdb.com/downloads/I_accept_the_FoundationDB_Community_License_Agreement/sql-layer/1.9.2/fdb-sql-layer_1.9.2-1_all.deb /tmp/
+ADD https://s3.amazonaws.com/foundationdb-pre-release/sql-layer-latest/fdb-sql-layer_1.9.3-0_all.deb /tmp/
 
 # Don't start service. Let supervisord do that.
 ADD policy-rc.d /usr/sbin/
-RUN dpkg -i /tmp/fdb-sql-layer_1.9.2-1_all.deb
+RUN dpkg -i /tmp/fdb-sql-layer_1.9.3-0_all.deb
 RUN rm /usr/sbin/policy-rc.d
 
 EXPOSE 15432
