@@ -18,9 +18,14 @@ RUN php </tmp/installer
 RUN mv composer.phar /usr/local/bin/composer
 
 RUN apt-get -y install git
-RUN git clone -b fdbsql https://github.com/MMcM/dbal.git
+RUN git clone https://github.com/FoundationDB/sql-layer-adapter-doctine-dbal
 
-RUN cd dbal && composer update
-ADD fdbsql.phpunit.xml dbal/
+RUN cd sql-layer-adapter-doctine-dbal && composer update && rm -rf vendor/doctrine && composer update --prefer-source && cd vendor/doctrine/dbal && composer update
 
-CMD cd dbal && sed -i -e "s/localhost/$FDBSQL_PORT_15432_TCP_ADDR/g" fdbsql.phpunit.xml && phpunit -c fdbsql.phpunit.xml
+# Temporary for 2.4.2.
+ADD test.patch sql-layer-adapter-doctine-dbal/
+RUN cd sql-layer-adapter-doctine-dbal/vendor/doctrine/dbal && patch -p 1 -d . <../../../test.patch
+
+RUN cd sql-layer-adapter-doctine-dbal && cp phpunit.xml.dist phpunit.xml
+
+CMD cd sql-layer-adapter-doctine-dbal && sed -i -e "s/localhost/$FDBSQL_PORT_15432_TCP_ADDR/g" phpunit.xml && phpunit
