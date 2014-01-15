@@ -39,3 +39,12 @@ docker run -d -p 49080:80 -link phpsql:fdbsql fdb/lefp
 docker build -t dbal-test doctrine-dbal-phpunit
 docker run -link phpsql:fdbsql dbal-test
 ```
+
+### Ruby on Rails ###
+
+```bash
+docker build -t fdb/rvm-ruby rvm-ruby
+docker build -t fdb/rails-getting-started rails-getting-started
+docker run -name railssql -d fdb/sql-layer
+docker run -d -p 49080:3000 -link railssql:fdbsql fdb/rails-getting-started
+```
