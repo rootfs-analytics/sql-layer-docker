@@ -13,4 +13,4 @@ RUN bash -c "source /usr/local/rvm/scripts/rvm && cd docrails/guides/code/gettin
 
 EXPOSE 3000
 ADD database.yml docrails/guides/code/getting_started/config/
-CMD cd docrails/guides/code/getting_started && sed -i -e "s/localhost/$FDBSQL_PORT_15432_TCP_ADDR/g" config/database.yml && bash -c "source /usr/local/rvm/scripts/rvm && RAILS_ENV=production rake db:migrate && rails server -e production -p 3000"
+CMD cd docrails/guides/code/getting_started && sed -i -e "s/localhost/$FDBSQL_PORT_15432_TCP_ADDR/g" config/database.yml && bash -c "source /usr/local/rvm/scripts/rvm && rake db:migrate && rails server -p 3000"
