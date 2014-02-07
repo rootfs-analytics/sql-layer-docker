@@ -7,5 +7,5 @@ MAINTAINER "fdb-boston@foundationdb.com"
 RUN apt-get update && apt-get -y upgrade
 RUN apt-get -y install python-software-properties python-setuptools
 
-ADD https://foundationdb.com/downloads/I_accept_the_FoundationDB_Community_License_Agreement/1.0.1/foundationdb-clients_1.0.1-1_amd64.deb /tmp/
-RUN dpkg -i /tmp/foundationdb-clients_1.0.1-1_amd64.deb
+ADD https://foundationdb.com/downloads/I_accept_the_FoundationDB_Community_License_Agreement/2.0.0/foundationdb-clients_2.0.0-1_amd64.deb /tmp/
+RUN dpkg -i /tmp/foundationdb-clients_2.0.0-1_amd64.deb
