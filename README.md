@@ -49,6 +49,15 @@ docker run -d -p 49432:15432 -v(as above) fdb/sql-layer
 fdbsqlcli -p 49432
 ```
 
+or run in its own container
+
+```bash
+docker build -t fdb/sql-layer-client sql-layer-client
+docker run -rm -t -i -link sql:sql fdb/sql-layer-client
+```
+
+More than one SQL Layer container can run against the same FDB cluster / container(s).
+
 ## PHP ##
 
 ```bash
