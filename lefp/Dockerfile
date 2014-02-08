@@ -7,9 +7,8 @@ MAINTAINER "fdb-boston@foundationdb.com"
 RUN echo "deb http://archive.ubuntu.com/ubuntu/ precise universe" >> /etc/apt/sources.list
 RUN add-apt-repository -y ppa:nginx/stable
 RUN add-apt-repository -y ppa:ondrej/php5
-RUN apt-get update && apt-get -y upgrade
+RUN apt-get update # && apt-get -y upgrade
 
-RUN dpkg-divert --local --rename --add /sbin/initctl && ln -s /bin/true /sbin/initctl
 RUN apt-get -y install nginx php5-fpm php5-pgsql
 
 #RUN sed -i -e"s/keepalive_timeout\s*65/keepalive_timeout 2/" /etc/nginx/nginx.conf
