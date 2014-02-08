@@ -4,16 +4,14 @@ FROM fdb/oracle-jdk7
 
 MAINTAINER "fdb-boston@foundationdb.com"
 
-ADD fdb.cluster /etc/foundationdb/
-
 ADD https://s3.amazonaws.com/foundationdb/downloads/I_accept_the_FoundationDB_Community_License_Agreement/sql-layer/1.9.3/fdb-sql-layer_1.9.3-1_all.deb /tmp/
-
-# Don't start service. Let supervisord do that.
-ADD policy-rc.d /usr/sbin/
 RUN dpkg -i /tmp/fdb-sql-layer_1.9.3-1_all.deb
-RUN rm /usr/sbin/policy-rc.d
+
+RUN mv /etc/foundationdb/sql /etc/fdb-sql
 
 EXPOSE 15432
+
+ADD docker-sql-layer.sh /usr/lib/foundationdb/
 
 RUN easy_install supervisor
 RUN mkdir -p /var/log/supervisor
