@@ -4,7 +4,6 @@ FROM fdb/fdb-client
 
 MAINTAINER "fdb-boston@foundationdb.com"
 
-RUN echo "deb http://archive.ubuntu.com/ubuntu/ precise universe" >> /etc/apt/sources.list
 RUN add-apt-repository -y ppa:nginx/stable
 RUN add-apt-repository -y ppa:ondrej/php5
 RUN apt-get update # && apt-get -y upgrade

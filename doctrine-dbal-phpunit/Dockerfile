@@ -4,9 +4,6 @@ FROM fdb/fdb-client
 
 MAINTAINER "fdb-boston@foundationdb.com"
 
-RUN echo "deb http://archive.ubuntu.com/ubuntu/ precise universe" >> /etc/apt/sources.list
-RUN apt-get update # && apt-get -y upgrade
-
 RUN apt-get -y install php5-cli php-pear php5-pgsql php5-sqlite
 
 RUN pear channel-discover pear.phpunit.de
