@@ -1,11 +1,11 @@
 # sql-layer: installs SQL layer on top of JDK + FDB client
 
-FROM fdb/oracle-jdk7
+FROM fdb/sql-layer-client
 
 MAINTAINER "fdb-boston@foundationdb.com"
 
-ADD https://s3.amazonaws.com/foundationdb/downloads/I_accept_the_FoundationDB_Community_License_Agreement/sql-layer/1.9.3/fdb-sql-layer_1.9.3-1_all.deb /tmp/
-RUN dpkg -i /tmp/fdb-sql-layer_1.9.3-1_all.deb
+ADD http://foundationdb.com/downloads/I_accept_the_FoundationDB_Community_License_Agreement/sql-layer/1.9.4/fdb-sql-layer_1.9.4-1_all.deb /tmp/
+RUN dpkg -i /tmp/fdb-sql-layer_1.9.4-1_all.deb
 
 RUN mv /etc/foundationdb/sql /etc/fdb-sql
 
