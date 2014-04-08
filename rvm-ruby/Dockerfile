@@ -1,9 +1,7 @@
 # rvm-ruby: install Ruby using RVM
 
-FROM fdb/fdb-client
+FROM fdb/rvm
 
 MAINTAINER "fdb-boston@foundationdb.com"
 
-RUN apt-get -y install curl
-ADD https://get.rvm.io rvm-installer
-RUN bash -s stable --ruby <rvm-installer
+RUN bash -c "source /usr/local/rvm/scripts/rvm && rvm install ruby && rvm alias create default ruby"

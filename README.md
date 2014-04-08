@@ -86,6 +86,7 @@ docker run --link phpsql:fdbsql dbal-test
 ### Ruby on Rails ###
 
 ```bash
+docker build -t fdb/rvm rvm
 docker build -t fdb/rvm-ruby rvm-ruby
 docker build -t fdb/rails-getting-started rails-getting-started
 docker run -d --volumes-from fdb --name railssql fdb/sql-layer
