@@ -1,9 +1,10 @@
 # oracle-jdk7: installs Oracle JDK on top of fdb-client.
 
-FROM fdb/fdb-client
+FROM foundationdb/fdb-client
 
 MAINTAINER "fdb-boston@foundationdb.com"
 
+RUN apt-get -y install software-properties-common
 RUN add-apt-repository ppa:webupd8team/java
 RUN apt-get update
 

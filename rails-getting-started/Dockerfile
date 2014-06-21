@@ -1,6 +1,6 @@
 # rails-getting-started: Getting Started code from Rails Docs running with FDB SQL Layer
 
-FROM fdb/rvm-ruby
+FROM foundationdb/rvm-ruby
 
 MAINTAINER "fdb-boston@foundationdb.com"
 

@@ -1,12 +1,8 @@
 # LEFP: Linux + Nginx + FDB SQL Layer + PHP.
 
-FROM fdb/fdb-client
+FROM foundationdb/fdb-client
 
 MAINTAINER "fdb-boston@foundationdb.com"
-
-RUN add-apt-repository -y ppa:nginx/stable
-RUN add-apt-repository -y ppa:ondrej/php5
-RUN apt-get update # && apt-get -y upgrade
 
 RUN apt-get -y install nginx php5-fpm php5-pgsql
 

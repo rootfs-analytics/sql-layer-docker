@@ -1,6 +1,6 @@
 # fdb-client: installs client libraries (without fdb.cluster).
 
-FROM ubuntu:12.04
+FROM ubuntu:14.04
 
 MAINTAINER "fdb-boston@foundationdb.com"
 

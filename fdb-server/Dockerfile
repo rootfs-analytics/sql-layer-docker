@@ -1,6 +1,6 @@
 # fdb-server: installs FDB server running in container
 
-FROM fdb/fdb-client
+FROM foundationdb/fdb-client
 
 MAINTAINER "fdb-boston@foundationdb.com"
 

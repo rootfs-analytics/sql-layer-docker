@@ -1,6 +1,6 @@
 # rvm-ruby: install Ruby using RVM
 
-FROM fdb/rvm
+FROM foundationdb/rvm
 
 MAINTAINER "fdb-boston@foundationdb.com"
 

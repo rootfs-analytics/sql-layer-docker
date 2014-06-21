@@ -1,6 +1,6 @@
 # Doctrine-DBAL-PHPUnit: run unit tests for Doctrine adapter.
 
-FROM fdb/fdb-client
+FROM foundationdb/fdb-client
 
 MAINTAINER "fdb-boston@foundationdb.com"
 

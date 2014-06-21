@@ -1,6 +1,6 @@
 # rvm: install RVM
 
-FROM fdb/fdb-client
+FROM foundationdb/fdb-client
 
 MAINTAINER "fdb-boston@foundationdb.com"
 
