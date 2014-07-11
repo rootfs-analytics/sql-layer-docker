@@ -95,3 +95,26 @@ docker run -d --link railssql:fdbsql -p 49081:3000 foundationdb/rails-getting-st
 
 Rails will be at [localhost:49081](http://localhost:49081/).
 (The username / password is dhh / secret.)
+
+### Spree Commerce ###
+
+```bash
+docker build -t foundationdb/spree spree
+docker run -d --name fdb foundationdb/fdb-server
+docker run -d --volumes-from fdb --name railssql foundationdb/sql-layer
+docker run -d --link railssql:fdbsql -p 49082:8080 --name spree foundationdb/spree init
+```
+
+Spree will be at [localhost:49082](http://localhost:49082/).
+(The username / password is spree@example.com / spree123.)
+
+Add some redundancy:
+
+```bash
+docker run -d --volumes-from fdb --name fdb-2 foundationdb/fdb-server
+docker run -d --volumes-from fdb --name fdb-3 foundationdb/fdb-server
+docker run --rm --volumes-from fdb foundationdb/fdb-client fdbcli --exec "configure double"
+docker run -d --volumes-from fdb --name sql-2 foundationdb/sql-layer
+docker run -d --link sql-2:fdbsql --volumes-from spree -p 49083:8080 --name spree-2 foundationdb/spree
+```
+

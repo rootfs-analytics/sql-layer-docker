@@ -1,0 +1,16 @@
+
+default: &default
+  adapter: fdbsql
+  host: localhost
+
+development:
+  <<: *default
+  database: spree
+
+production:
+  <<: *default
+  database: spree
+
+test:
+  <<: *default
+  database: spree_test
