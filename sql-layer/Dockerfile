@@ -7,6 +7,7 @@ MAINTAINER "fdb-boston@foundationdb.com"
 ADD http://foundationdb.com/downloads/I_accept_the_FoundationDB_Community_License_Agreement/sql-layer/1.9.5/fdb-sql-layer_1.9.5-1_all.deb /tmp/
 RUN dpkg -i /tmp/fdb-sql-layer_1.9.5-1_all.deb
 
+RUN echo 'fdbsql.index_statistics.background=disabled' >>/etc/foundationdb/sql/server.properties
 RUN mv /etc/foundationdb/sql /etc/fdb-sql
 
 EXPOSE 15432
