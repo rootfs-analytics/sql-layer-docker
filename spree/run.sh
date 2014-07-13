@@ -21,6 +21,7 @@ if [ "$CMD" = "init" ]; then
   rm -rf /static/assets /static/spree
   mv public/assets /static
   mv public/spree /static
+  cp public/500.html /static
 fi
 
 rm -rf public/assets public/spree

@@ -98,23 +98,34 @@ Rails will be at [localhost:49081](http://localhost:49081/).
 
 ### Spree Commerce ###
 
+The basic app server:
+
 ```bash
 docker build -t foundationdb/spree spree
 docker run -d --name fdb foundationdb/fdb-server
-docker run -d --volumes-from fdb --name railssql foundationdb/sql-layer
-docker run -d --link railssql:fdbsql -p 49082:8080 --name spree foundationdb/spree init
+docker run -d --volumes-from fdb --name sql foundationdb/sql-layer
+# (wait a bit)
+docker run -d --link sql:fdbsql --name spree foundationdb/spree init
+docker logs -f spree
 ```
 
-Spree will be at [localhost:49082](http://localhost:49082/).
-(The username / password is spree@example.com / spree123.)
-
-Add some redundancy:
+If desired, add some redundancy:
 
 ```bash
 docker run -d --volumes-from fdb --name fdb-2 foundationdb/fdb-server
 docker run -d --volumes-from fdb --name fdb-3 foundationdb/fdb-server
 docker run --rm --volumes-from fdb foundationdb/fdb-client fdbcli --exec "configure double"
 docker run -d --volumes-from fdb --name sql-2 foundationdb/sql-layer
-docker run -d --link sql-2:fdbsql --volumes-from spree -p 49083:8080 --name spree-2 foundationdb/spree
+# (wait a bit)
+docker run -d --link sql-2:fdbsql --volumes-from spree --name spree-2 foundationdb/spree
 ```
 
+The web server front-end:
+
+```bash
+docker build -t foundationdb/spree-nginx spree-nginx
+docker run -d --volumes-from spree --link spree:spree --link spree-2:spree_2 -p 49085:80 --name spree-web foundationdb/spree-nginx
+```
+
+Spree will be at [localhost:49085](http://localhost:49085/).
+(The username / password is spree@example.com / spree123.)
