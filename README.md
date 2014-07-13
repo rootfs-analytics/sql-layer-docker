@@ -128,4 +128,8 @@ docker run -d --volumes-from spree --link spree:spree --link spree-2:spree_2 -p 
 ```
 
 Spree will be at [localhost:49085](http://localhost:49085/).
-(The username / password is spree@example.com / spree123.)
+The username / password is spree@example.com / spree123.
+
+Login, put something in the cart. Then kill one of the spree app
+servers or the sql database servers. The site, including the cart
+should still be there.
