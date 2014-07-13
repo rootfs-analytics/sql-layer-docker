@@ -36,3 +36,7 @@ SECRET=$(rake secret)
 sed -i -e "s|<%= ENV\[\"SECRET_KEY_BASE\"\] %>|$SECRET|g" config/secrets.yml
 
 RAILS_ENV=production rake assets:precompile
+
+cat >>config/initializers/spree.rb <<EOF
+Spree::Config.set(:allow_ssl_in_production => false)
+EOF
