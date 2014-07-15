@@ -7,7 +7,7 @@ gem install rails --version 4.1.2 --no-document
 rails _4.1.2_ new thestore --skip-bundle
 cd thestore
 
-sed -i -e "s|gem 'sqlite3'|gem 'activerecord-fdbsql-adapter', github: 'nathanlws/sql-layer-adapter-activerecord', branch: 'support-rails-4.1'|g" Gemfile
+sed -i -e "s|gem 'sqlite3'|gem 'activerecord-fdbsql-adapter', github: 'FoundationDB/sql-layer-adapter-activerecord'|g" Gemfile
 mv /tmp/database.yml config/
 
 sed -i -e "s|# gem 'therubyracer'|gem 'therubyracer'|g" Gemfile
