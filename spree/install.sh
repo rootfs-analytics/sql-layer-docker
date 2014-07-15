@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 source /usr/local/rvm/scripts/rvm
 
