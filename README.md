@@ -83,24 +83,13 @@ docker build -t dbal-test doctrine-dbal-phpunit
 docker run --link phpsql:fdbsql dbal-test
 ```
 
-### Ruby on Rails ###
-
-```bash
-docker build -t foundationdb/rvm rvm
-docker build -t foundationdb/rvm-ruby rvm-ruby
-docker build -t foundationdb/rails-getting-started rails-getting-started
-docker run -d --volumes-from fdb --name railssql foundationdb/sql-layer
-docker run -d --link railssql:fdbsql -p 49081:3000 foundationdb/rails-getting-started
-```
-
-Rails will be at [localhost:49081](http://localhost:49081/).
-(The username / password is dhh / secret.)
-
-### Spree Commerce ###
+### Ruby on Rails : Spree Commerce ###
 
 The basic app server:
 
 ```bash
+docker build -t foundationdb/rvm rvm
+docker build -t foundationdb/rvm-ruby rvm-ruby
 docker build -t foundationdb/spree spree
 docker run -d --name fdb foundationdb/fdb-server
 docker run -d --volumes-from fdb --name sql foundationdb/sql-layer

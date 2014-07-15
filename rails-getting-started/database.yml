@@ -1,4 +1,0 @@
-development:
-  adapter: fdbsql
-  host: localhost
-  database: rails_gstarted
