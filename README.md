@@ -122,3 +122,13 @@ The username / password is spree@example.com / spree123.
 Login, put something in the cart. Then kill one of the spree app
 servers or the sql database servers. The site, including the cart
 should still be there.
+
+### MyBatis JPetStore sample ###
+
+```bash
+docker build -t foundationdb/tomcat tomcat
+docker build -t foundationdb/mybatis-jpetstore mybatis-jpetstore
+docker run -d -p 49088:8080 --link sql:sql foundationdb/mybatis-jpetstore
+```
+
+Store will be at [localhost:49088](http://localhost:49088/jpetstore/).
