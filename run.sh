@@ -5,6 +5,10 @@ docker inspect sql >/dev/null 2>&1 || docker run -d --volumes-from fdb --name sq
 
 case "$1" in
 
+fdbsqlcli)
+  docker run --rm -t -i --link sql:sql foundationdb/sql-layer-client
+  ;;
+
 lefp)
   docker run -d --link sql:fdbsql -p 49080:80 foundationdb/lefp
   echo "Visit http://localhost:49080"
