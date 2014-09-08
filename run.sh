@@ -29,6 +29,11 @@ jpetstore)
   echo "Visit http://localhost:49088/jpetstore"
   ;;
 
+activiti)
+  docker run -d -p 49089:8080 --link sql:sql foundationdb/activiti
+  echo "Visit http://localhost:49089/activiti-webapp-explorer2"
+  ;;
+
 *)
   echo "Usage: $0 {lefp,dbal-test,spree,jpetstore}" >&2
   exit 1

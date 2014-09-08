@@ -18,5 +18,6 @@ docker build -t foundationdb/spree-nginx spree-nginx
 
 docker build -t foundationdb/tomcat tomcat
 docker build -t foundationdb/mybatis-jpetstore mybatis-jpetstore
+docker build -t foundationdb/activiti activiti
 
 docker rmi $(docker images -f "dangling=true" -q) || true
