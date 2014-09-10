@@ -4,9 +4,10 @@ FROM foundationdb/sql-layer-client
 
 MAINTAINER "fdb-boston@foundationdb.com"
 
-ADD https://foundationdb.com/downloads/I_accept_the_FoundationDB_Community_License_Agreement/sql-layer/pre-release/1.9.6-1/fdb-sql-layer_1.9.6-0_all.deb /tmp/
-RUN dpkg -i /tmp/fdb-sql-layer_1.9.6-0_all.deb
+ADD https://foundationdb.com/downloads/I_accept_the_FoundationDB_Community_License_Agreement/sql-layer/2.0.latest/fdb-sql-layer_2.0.latest-1_all.deb /tmp/
+RUN dpkg -i /tmp/fdb-sql-layer_2.0.latest-1_all.deb
 
+RUN echo 'fdbsql.postgres.host=0.0.0.0' >>/etc/foundationdb/sql/server.properties
 RUN mv /etc/foundationdb/sql /etc/fdb-sql
 
 EXPOSE 15432
