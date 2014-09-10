@@ -7,6 +7,9 @@ MAINTAINER "fdb-boston@foundationdb.com"
 RUN apt-get update
 RUN apt-get -y install git imagemagick libpq-dev
 
+# Temporary to avoid segfault with therubyracer / libv8
+RUN apt-get -y install nodejs
+
 ADD install.sh /tmp/
 ADD database.yml /tmp/
 RUN /tmp/install.sh

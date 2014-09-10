@@ -20,8 +20,9 @@ dbal-test)
 
 spree)
   docker run -d --link sql:fdbsql --name spree foundationdb/spree init
-  docker run -d --volumes-from spree --link spree:spree p 49085:80 --name spree-web foundationdb/spree-nginx
-  echo "Visit http://localhost:49085"
+  docker run -d --volumes-from spree --link spree:spree -p 49085:80 --name spree-web foundationdb/spree-nginx
+  echo "Be patient and/or check docker logs -f spree"
+  echo "Then visit http://localhost:49085"
   ;;
 
 jpetstore)

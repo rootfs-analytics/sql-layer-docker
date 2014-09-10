@@ -10,7 +10,8 @@ cd thestore
 sed -i -e "s|gem 'sqlite3'|gem 'activerecord-fdbsql-adapter', github: 'FoundationDB/sql-layer-adapter-activerecord'|g" Gemfile
 mv /tmp/database.yml config/
 
-sed -i -e "s|# gem 'therubyracer'|gem 'therubyracer'|g" Gemfile
+# Using nodejs for execjs for the time being -- else segfault accessing addr 0.
+#sed -i -e "s|# gem 'therubyracer'|gem 'therubyracer'|g" Gemfile
 sed -i -e "s|# gem 'unicorn'|gem 'unicorn'|g" Gemfile
 
 cat >>Gemfile <<EOF
