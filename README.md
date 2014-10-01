@@ -83,6 +83,13 @@ docker build -t dbal-test doctrine-dbal-phpunit
 docker run --link phpsql:fdbsql dbal-test
 ```
 
+### SQLAlchemy FoundationDB SQL PyTest ###
+
+```bash
+docker build -t sqlalchemy-test sqlalchemy-pytest
+docker run --link sql:fdbsql sqlalchemy-test
+```
+
 ### Ruby on Rails : Spree Commerce ###
 
 The basic app server:

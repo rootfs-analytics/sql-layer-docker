@@ -18,6 +18,10 @@ dbal-test)
   docker run --link sql:fdbsql dbal-test
   ;;
 
+sqlalchemy-test)
+  docker run --link sql:fdbsql sqlalchemy-test
+  ;;
+
 spree)
   docker run -d --link sql:fdbsql --name spree foundationdb/spree init
   docker run -d --volumes-from spree --link spree:spree -p 49085:80 --name spree-web foundationdb/spree-nginx

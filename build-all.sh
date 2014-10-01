@@ -11,6 +11,8 @@ docker build -t foundationdb/lefp lefp
 
 docker build -t dbal-test doctrine-dbal-phpunit
 
+docker build -t sqlalchemy-test sqlalchemy-pytest
+
 docker build -t foundationdb/rvm rvm
 docker build -t foundationdb/rvm-ruby rvm-ruby
 docker build -t foundationdb/spree spree
