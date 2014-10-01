@@ -5,6 +5,10 @@ docker inspect sql >/dev/null 2>&1 || docker run -d --volumes-from fdb --name sq
 
 case "$1" in
 
+sql[2-9])
+  docker run -d --volumes-from fdb --name $1 foundationdb/sql-layer
+  ;;
+
 fdbsqlcli)
   docker run --rm -t -i --link sql:sql foundationdb/sql-layer-client
   ;;
@@ -12,6 +16,10 @@ fdbsqlcli)
 lefp)
   docker run -d --link sql:fdbsql -p 49080:80 foundationdb/lefp
   echo "Visit http://localhost:49080"
+  ;;
+
+pgpool)
+  docker run -d $(docker inspect --format '{{.Name}}' $(docker ps -q) | awk '/\/sql/ { n = substr($0,2); print("--link " n ":fdb" n); }') --name pgpool foundationdb/pgpool
   ;;
 
 dbal-test)

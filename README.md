@@ -83,14 +83,14 @@ docker build -t dbal-test doctrine-dbal-phpunit
 docker run --link phpsql:fdbsql dbal-test
 ```
 
-### SQLAlchemy FoundationDB SQL PyTest ###
+## SQLAlchemy FoundationDB SQL PyTest ##
 
 ```bash
 docker build -t sqlalchemy-test sqlalchemy-pytest
 docker run --link sql:fdbsql sqlalchemy-test
 ```
 
-### Ruby on Rails : Spree Commerce ###
+## Ruby on Rails : Spree Commerce ##
 
 The basic app server:
 
@@ -130,7 +130,7 @@ Login, put something in the cart. Then kill one of the spree app
 servers or the sql database servers. The site, including the cart
 should still be there.
 
-### MyBatis JPetStore sample ###
+## MyBatis JPetStore sample ##
 
 ```bash
 docker build -t foundationdb/tomcat tomcat
@@ -139,3 +139,18 @@ docker run -d -p 49088:8080 --link sql:sql foundationdb/mybatis-jpetstore
 ```
 
 Store will be at [localhost:49088](http://localhost:49088/jpetstore/).
+
+## PGPool-II ##
+
+```bash
+docker build -t foundationdb/pgpool pgpool
+docker run -d --volumes-from fdb --name sql foundationdb/sql-layer
+docker run -d --volumes-from fdb --name sql2 foundationdb/sql-layer
+docker run -d --link sql:fdbsql --link sql2:fdbsql2 --name pgpool foundationdb/pgpool
+```
+
+Connect client to pool
+
+```bash
+docker run --rm -t -i --link pgpool:sql foundationdb/sql-layer-client
+```

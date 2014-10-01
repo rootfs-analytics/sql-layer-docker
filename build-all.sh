@@ -9,6 +9,8 @@ docker build -t foundationdb/sql-layer sql-layer
 
 docker build -t foundationdb/lefp lefp
 
+docker build -t foundationdb/pgpool pgpool
+
 docker build -t dbal-test doctrine-dbal-phpunit
 
 docker build -t sqlalchemy-test sqlalchemy-pytest
