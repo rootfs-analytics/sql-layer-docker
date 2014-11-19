@@ -10,9 +10,10 @@ ADD https://foundationdb.com/downloads/I_accept_the_FoundationDB_Community_Licen
 RUN dpkg -i /tmp/fdb-sql-layer.deb
 
 RUN echo 'fdbsql.postgres.host=0.0.0.0' >>/etc/foundationdb/sql/server.properties
+RUN echo 'fdbsql.http.host=0.0.0.0' >>/etc/foundationdb/sql/server.properties
 RUN mv /etc/foundationdb/sql /etc/fdb-sql
 
-EXPOSE 15432
+EXPOSE 15432 8091
 
 ADD docker-sql-layer.sh /usr/lib/foundationdb/
 
