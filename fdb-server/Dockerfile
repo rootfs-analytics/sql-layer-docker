@@ -5,10 +5,10 @@ FROM foundationdb/fdb-client
 MAINTAINER "fdb-boston@foundationdb.com"
 
 # Prevent initialization by installer
-RUN mkdir /etc/foundationdb && touch /etc/foundationdb/fdb.cluster
+RUN mkdir -p /etc/foundationdb && touch /etc/foundationdb/fdb.cluster
 
-ADD https://foundationdb.com/downloads/I_accept_the_FoundationDB_Community_License_Agreement/2.0.9/foundationdb-server_2.0.9-1_amd64.deb /tmp/
-RUN dpkg -i /tmp/foundationdb-server_2.0.9-1_amd64.deb
+ADD https://foundationdb.com/downloads/f-afxudaxbxuuo/I_accept_the_FoundationDB_Community_License_Agreement/key-value-store/3.0.4/foundationdb-server_3.0.4-1_amd64.deb /tmp/foundationdb-server.deb
+RUN dpkg -i /tmp/foundationdb-server.deb
 
 RUN mv /etc/foundationdb/foundationdb.conf /usr/lib/foundationdb/foundationdb.conf.orig
 RUN rm -rf /etc/foundationdb /var/lib/foundationdb/data
