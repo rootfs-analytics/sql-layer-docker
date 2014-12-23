@@ -4,7 +4,7 @@
 
 ```bash
 docker build -t foundationdb/fdb-client fdb-client
-docker build -t foundationdb/oracle-jdk7 oracle-jdk7
+docker build -t foundationdb/oracle-jdk8 oracle-jdk8
 docker build -t foundationdb/sql-layer-client sql-layer-client
 docker build -t foundationdb/sql-layer sql-layer
 ```

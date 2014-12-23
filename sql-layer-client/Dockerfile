@@ -1,6 +1,6 @@
 # sql-layer-client: runs SQL client against linked host
 
-FROM foundationdb/oracle-jdk7
+FROM foundationdb/oracle-jdk8
 
 MAINTAINER "fdb-boston@foundationdb.com"
 
