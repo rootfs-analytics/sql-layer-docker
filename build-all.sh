@@ -10,6 +10,7 @@ docker build -t foundationdb/sql-layer sql-layer
 docker build -t foundationdb/lefp lefp
 
 docker build -t foundationdb/pgpool pgpool
+docker build -t foundationdb/haproxy haproxy
 docker build -t hikaricp-test hikaricp-test
 
 docker build -t dbal-test doctrine-dbal-phpunit

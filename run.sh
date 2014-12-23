@@ -3,6 +3,13 @@
 docker inspect fdb >/dev/null 2>&1 || docker run -d --name fdb foundationdb/fdb-server
 docker inspect sql >/dev/null 2>&1 || docker run -d --volumes-from fdb --name sql foundationdb/sql-layer
 
+fdbsql_links()
+{
+  # Link to _all_ running SQL Layers.
+  docker inspect --format '{{.Name}}' $(docker ps -q) | \
+  awk '/\/sql/ { n = substr($0,2); print("--link " n ":fdb" n); }'
+}
+
 case "$1" in
 
 sql[2-9])
@@ -19,11 +26,32 @@ lefp)
   ;;
 
 pgpool)
-  docker run -d $(docker inspect --format '{{.Name}}' $(docker ps -q) | awk '/\/sql/ { n = substr($0,2); print("--link " n ":fdb" n); }') --name pgpool foundationdb/pgpool
+  docker run -d $(fdbsql_links) --name pgpool foundationdb/pgpool
+  ;;
+
+pgpool-fdbsqlcli)
+  docker run --rm -t -i --link pgpool:sql foundationdb/sql-layer-client
+  ;;
+
+haproxy)
+  docker run -d $(fdbsql_links) -p 49082:8080 --name haproxy foundationdb/haproxy
+  echo "Visit http://localhost:49082 for stats"
+  ;;
+
+haproxy-fdbsqlcli)
+  docker run --rm -t -i --link haproxy:sql foundationdb/sql-layer-client
   ;;
 
 hikaricp-test)
-  docker run --rm $(docker inspect --format '{{.Name}}' $(docker ps -q) | awk '/\/sql/ { n = substr($0,2); print("--link " n ":fdb" n); }') hikaricp-test
+  docker run --rm $(fdbsql_links) hikaricp-test
+  ;;
+
+hikaricp-pgpool-test)
+  docker run --rm --link pgpool:fdbsql hikaricp-test
+  ;;
+
+hikaricp-haproxy-test)
+  docker run --rm --link haproxy:fdbsql hikaricp-test
   ;;
 
 dbal-test)
