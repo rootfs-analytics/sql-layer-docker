@@ -22,6 +22,10 @@ pgpool)
   docker run -d $(docker inspect --format '{{.Name}}' $(docker ps -q) | awk '/\/sql/ { n = substr($0,2); print("--link " n ":fdb" n); }') --name pgpool foundationdb/pgpool
   ;;
 
+hikaricp-test)
+  docker run --rm $(docker inspect --format '{{.Name}}' $(docker ps -q) | awk '/\/sql/ { n = substr($0,2); print("--link " n ":fdb" n); }') hikaricp-test
+  ;;
+
 dbal-test)
   docker run --link sql:fdbsql dbal-test
   ;;
