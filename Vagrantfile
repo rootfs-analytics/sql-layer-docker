@@ -6,10 +6,11 @@ COREOS_CHANNEL = "alpha"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # rsync only works one way, which is less convenient for debugging scripts.
+  # nfs is really slow, particular when writing.
   # On Windows:
   # For nfs: vagrant plugin install vagrant-winnfsd.
   # For rsync: install cwRsync and adjust cygdrive path prefix.
-  sync_type = ENV['VAGRANT_SYNC_TYPE'] || 'nfs'
+  sync_type = ENV['VAGRANT_SYNC_TYPE'] || 'rsync'
 
   # Build multiple Docker boxes to test cluster communication among
   # containers on different hosts.
@@ -48,19 +49,34 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         end
       end
 
-      vm_config.vm.network "private_network", ip: "192.168.50.#{10 + n}" if sync_type == 'nfs'
+      if sync_type == 'nfs' || box_count > 1
+        vm_config.vm.network "private_network", ip: "192.168.50.#{10 + n}"
+      end
+
+      if box_count > 1
+        # No way to access Vagrant::Environment.default_private_key_path here?
+        vm_config.vm.provision "file", source: "~/.vagrant.d/insecure_private_key", destination: "~/.ssh/id_rsa"
+        vm_config.vm.provision "shell", privileged: false, keep_color: true, inline: "chmod go-rx ~/.ssh/id_rsa"
+      end
+
       script = "cd sql-layer-docker\n"
       if n == 0
         script += "./build-all.sh\n"
         if box_count > 1
+          # The obvious thing would be to copy images.tar.gz back to
+          # the sync'ed directory. But that takes 20 minutes over NFS.
           script += <<EOF
+echo Saving FDB images
 docker save -o /tmp/images.tar foundationdb/fdb-client foundationdb/fdb-server
 gzip /tmp/images.tar
-mv /tmp/images.tar.gz .
 EOF
         end
       else
-          script += "zcat images.tar.gz | docker load\n"
+          script += <<EOF
+echo Restoring FDB images
+scp -o StrictHostKeyChecking=no 192.168.50.10:/tmp/images.tar.gz /tmp/
+zcat /tmp/images.tar.gz | docker load
+EOF
       end
       vm_config.vm.provision "shell", privileged: false, keep_color: true, inline: script
 
