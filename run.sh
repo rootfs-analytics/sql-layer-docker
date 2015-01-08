@@ -79,6 +79,15 @@ activiti)
   echo "Visit http://localhost:49089/activiti-webapp-explorer2"
   ;;
 
+krb5-servers)
+  docker run -d --name kdc krb5-server
+  docker run -d --volumes-from fdb --link kdc:kdc --name krbsql krb5-sql-layer
+  ;;
+
+krb5-client)
+  docker run --rm -t -i --link kdc:kdc -e KRB_USER=user --link krbsql:sql krb5-sql-layer-client
+  ;;
+
 *)
   echo "Usage: $0 {lefp,dbal-test,spree,jpetstore}" >&2
   exit 1

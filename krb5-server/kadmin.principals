@@ -1,0 +1,2 @@
+add_principal -pw secret user
+add_principal -pw top-secret user/admin

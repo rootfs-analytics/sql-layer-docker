@@ -237,6 +237,39 @@ Adding HAProxy will give both failover and load balancing.
 docker run --rm --link haproxy:fdbsql hikaricp-test
 ```
 
+## SQL Layer security ##
+
+### Kerberos ###
+
+Build images:
+
+```bash
+docker build -t krb5-server krb5-server
+docker build -t krb5-sql-layer krb5-sql-layer
+docker build -t krb5-sql-layer-client krb5-sql-layer-client
+```
+
+Start a KDC:
+
+```bash
+docker run -d --name kdc krb5-server
+```
+
+Start a SQL layer that will register itself with the KDC:
+
+```bash
+docker run -d --volumes-from fdb --link kdc:kdc --name krbsql krb5-sql-layer
+```
+
+A SQL client that will authenticate with the KDC and then use that ticket with the SQL
+layer:
+
+```bash
+docker run --rm -t -i --link kdc:kdc -e KRB_USER=user --link krbsql:sql krb5-sql-layer-client
+```
+
+The password is secret.
+
 ## Applications ##
 
 ### A simple PHP page ###
