@@ -26,6 +26,7 @@ EOF
 
     cat >>/etc/foundationdb/sql/server.properties <<EOF
 
+fdbsql.restrict_user_schema=true
 fdbsql.postgres.gssConfigName=krbsql
 EOF
 

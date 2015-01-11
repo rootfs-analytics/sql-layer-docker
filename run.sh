@@ -79,6 +79,11 @@ activiti)
   echo "Visit http://localhost:49089/activiti-webapp-explorer2"
   ;;
 
+ldap-servers)
+  docker run -d --name ldap ldap-server
+  docker run -d --volumes-from fdb --link ldap:ldap -e LDAP_CONFIG=jetty1 --name ldapsql ldap-sql-layer
+  ;;
+
 krb5-servers)
   docker run -d --name kdc krb5-server
   docker run -d --volumes-from fdb --link kdc:kdc --name krbsql krb5-sql-layer

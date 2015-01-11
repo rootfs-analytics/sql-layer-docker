@@ -239,6 +239,35 @@ docker run --rm --link haproxy:fdbsql hikaricp-test
 
 ## SQL Layer security ##
 
+### LDAP ###
+
+Build images:
+
+```bash
+docker build -t ldap-server ldap-server
+docker build -t ldap-sql-layer ldap-sql-layer
+```
+
+Start a LDAP server with local users:
+
+```bash
+docker run -d --name ldap ldap-server
+```
+
+Start a SQL layer that will use that server:
+
+```bash
+docker run -d --volumes-from fdb --link ldap:ldap -e LDAP_CONFIG=jetty1 --name ldapsql ldap-sql-layer
+```
+
+A SQL client will be authenticated and have admin access only if user
+is a member of that group:
+
+```bash
+docker run --rm -t -i --link ldapsql:sql -e FDBSQLCLI_ARGS="-u fred -w wilma" foundationdb/sql-layer-client
+docker run --rm -t -i --link ldapsql:sql -e FDBSQLCLI_ARGS="-u wilma -w fred" foundationdb/sql-layer-client
+```
+
 ### Kerberos ###
 
 Build images:

@@ -1,0 +1,4 @@
+slapd slapd/password1 password secret
+slapd slapd/password2 password secret
+slapd shared/organization string docker
+slapd slapd/domain string docker.local

@@ -1,0 +1,30 @@
+dn: ou=People,dc=docker,dc=local
+objectClass: organizationalUnit
+ou: People
+
+dn: uid=fred,ou=People,dc=docker,dc=local
+objectClass: inetOrgPerson
+uid: fred
+sn: Flintstone
+givenName: Fred
+cn: Fred Flintstone
+displayName: Fred Flintstone
+userPassword: wilma
+
+dn: uid=wilma,ou=People,dc=docker,dc=local
+objectClass: inetOrgPerson
+uid: wilma
+sn: Flintstone
+givenName: Wilma
+cn: Wilma Flintstone
+displayName: Wilma Flintstone
+userPassword: fred
+
+dn: ou=Groups,dc=docker,dc=local
+objectClass: organizationalUnit
+ou: Groups
+
+dn: cn=admin,ou=Groups,dc=docker,dc=local
+objectclass: groupOfUniqueNames
+cn: admin
+uniquemember: uid=fred,ou=People,dc=docker,dc=local

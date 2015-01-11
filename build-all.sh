@@ -26,6 +26,9 @@ docker build -t foundationdb/tomcat tomcat
 docker build -t foundationdb/mybatis-jpetstore mybatis-jpetstore
 docker build -t foundationdb/activiti activiti
 
+docker build -t ldap-server ldap-server
+docker build -t ldap-sql-layer ldap-sql-layer
+
 docker build -t krb5-server krb5-server
 docker build -t krb5-sql-layer krb5-sql-layer
 docker build -t krb5-sql-layer-client krb5-sql-layer-client
