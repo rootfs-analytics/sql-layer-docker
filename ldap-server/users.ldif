@@ -28,3 +28,8 @@ dn: cn=admin,ou=Groups,dc=docker,dc=local
 objectclass: groupOfUniqueNames
 cn: admin
 uniquemember: uid=fred,ou=People,dc=docker,dc=local
+
+dn: cn=rest-user,ou=Groups,dc=docker,dc=local
+objectclass: groupOfUniqueNames
+cn: rest-user
+uniquemember: uid=wilma,ou=People,dc=docker,dc=local

@@ -31,6 +31,10 @@ fdbsqlcli)
   docker run --rm -t -i --link sql:sql -e FDBSQLCLI_ARGS="$(requote "$@")" foundationdb/sql-layer-client
   ;;
 
+rest-client)
+  docker run --rm -t -i --link sql:sql -e REST_ARGS="$*" foundationdb/sql-layer-rest-client
+  ;;
+
 lefp)
   docker run -d --link sql:fdbsql -p 49080:80 foundationdb/lefp
   echo "Visit http://localhost:49080"
@@ -97,6 +101,10 @@ ldap-servers)
 
 ldap-client)
   docker run --rm -t -i --link ldapsql:sql -e FDBSQLCLI_ARGS="$(requote "$@")" foundationdb/sql-layer-client
+  ;;
+
+ldap-rest-client)
+  docker run --rm -t -i --link ldapsql:sql -e REST_ARGS="$*" foundationdb/sql-layer-rest-client
   ;;
 
 krb5-servers)

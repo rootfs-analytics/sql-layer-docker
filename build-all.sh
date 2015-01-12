@@ -6,6 +6,7 @@ docker build -t foundationdb/fdb-server fdb-server
 docker build -t foundationdb/oracle-jdk8 oracle-jdk8
 docker build -t foundationdb/sql-layer-client sql-layer-client
 docker build -t foundationdb/sql-layer sql-layer
+docker build -t foundationdb/sql-layer-rest-client sql-layer-rest-client
 
 docker build -t foundationdb/lefp lefp
 
