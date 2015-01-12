@@ -176,6 +176,12 @@ INSERT INTO t1 VALUES(1, 'Fred'),(2, 'Wilma');
 exit
 ```
 
+It is also possible to pass client arguments into the container.
+
+```bash
+docker run --rm -t -i --link sql:sql -e 'FDBSQLCLI_ARGS=-c "SELECT s FROM t1"' foundationdb/sql-layer-client
+```
+
 ### Multiple SQL Layers ###
 
 More than one SQL Layer container can run against the same FDB cluster /

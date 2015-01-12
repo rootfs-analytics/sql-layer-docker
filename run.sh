@@ -10,14 +10,25 @@ fdbsql_links()
   awk '/\/sql/ { n = substr($0,2); print("--link " n ":fdb" n); }'
 }
 
-case "$1" in
+requote()
+{
+  while [ $# -gt 0 ]; do
+    printf "\""
+    printf "%s" "$1" | sed -e 's/\(["\]\)/\\\1/g'
+    printf "\" "
+    shift
+  done
+}
+
+target=$1; shift
+case "$target" in
 
 sql[2-9])
-  docker run -d --volumes-from fdb --name $1 foundationdb/sql-layer
+  docker run -d --volumes-from fdb --name $target foundationdb/sql-layer
   ;;
 
 fdbsqlcli)
-  docker run --rm -t -i --link sql:sql foundationdb/sql-layer-client
+  docker run --rm -t -i --link sql:sql -e FDBSQLCLI_ARGS="$(requote "$@")" foundationdb/sql-layer-client
   ;;
 
 lefp)
@@ -30,7 +41,7 @@ pgpool)
   ;;
 
 pgpool-fdbsqlcli)
-  docker run --rm -t -i --link pgpool:sql foundationdb/sql-layer-client
+  docker run --rm -t -i --link pgpool:sql -e FDBSQLCLI_ARGS="$(requote "$@")" foundationdb/sql-layer-client
   ;;
 
 haproxy)
@@ -39,7 +50,7 @@ haproxy)
   ;;
 
 haproxy-fdbsqlcli)
-  docker run --rm -t -i --link haproxy:sql foundationdb/sql-layer-client
+  docker run --rm -t -i --link haproxy:sql -e FDBSQLCLI_ARGS="$(requote "$@")" foundationdb/sql-layer-client
   ;;
 
 hikaricp-test)
@@ -81,7 +92,11 @@ activiti)
 
 ldap-servers)
   docker run -d --name ldap ldap-server
-  docker run -d --volumes-from fdb --link ldap:ldap -e LDAP_CONFIG=jetty1 --name ldapsql ldap-sql-layer
+  docker run -d --volumes-from fdb --link ldap:ldap -e LDAP_CONFIG=${1:-jetty1} --name ldapsql ldap-sql-layer
+  ;;
+
+ldap-client)
+  docker run --rm -t -i --link ldapsql:sql -e FDBSQLCLI_ARGS="$(requote "$@")" foundationdb/sql-layer-client
   ;;
 
 krb5-servers)
@@ -90,7 +105,8 @@ krb5-servers)
   ;;
 
 krb5-client)
-  docker run --rm -t -i --link kdc:kdc -e KRB_USER=user --link krbsql:sql krb5-sql-layer-client
+  kuser=$1; shift
+  docker run --rm -t -i --link kdc:kdc -e KRB_USER=${kuser:-user} --link krbsql:sql -e FDBSQLCLI_ARGS="$(requote "$@")" krb5-sql-layer-client
   ;;
 
 *)
