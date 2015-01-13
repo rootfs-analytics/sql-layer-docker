@@ -117,6 +117,11 @@ krb5-client)
   docker run --rm -t -i --link kdc:kdc -e KRB_USER=${kuser:-user} --link krbsql:sql -e FDBSQLCLI_ARGS="$(requote "$@")" krb5-sql-layer-client
   ;;
 
+krb5-rest-client)
+  kuser=$1; shift
+  docker run --rm -t -i --link kdc:kdc -e KRB_USER=${kuser:-user} --link krbsql:sql -e REST_ARGS="$*" krb5-sql-layer-rest-client
+  ;;
+
 *)
   echo "Usage: $0 {lefp,dbal-test,spree,jpetstore}" >&2
   exit 1

@@ -33,5 +33,6 @@ docker build -t ldap-sql-layer ldap-sql-layer
 docker build -t krb5-server krb5-server
 docker build -t krb5-sql-layer krb5-sql-layer
 docker build -t krb5-sql-layer-client krb5-sql-layer-client
+docker build -t krb5-sql-layer-rest-client krb5-sql-layer-rest-client
 
 docker rmi $(docker images -f "dangling=true" -q) || true

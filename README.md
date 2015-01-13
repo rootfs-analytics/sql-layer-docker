@@ -305,6 +305,12 @@ docker run --rm -t -i --link kdc:kdc -e KRB_USER=user --link krbsql:sql krb5-sql
 
 The password is secret.
 
+Similarly for REST access:
+
+```bash
+docker run --rm -t -i --link kdc:kdc -e KRB_USER=user --link krbsql:sql -e REST_ARGS="/v1/version" krb5-sql-layer-rest-client
+```
+
 ## Applications ##
 
 ### A simple PHP page ###
