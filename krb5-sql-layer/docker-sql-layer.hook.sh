@@ -4,7 +4,7 @@ sed -i -e "s/kdc.docker.local/$KDC_PORT_88_UDP_ADDR/g" /etc/krb5.conf
 if [ ! -f /etc/foundationdb/sql/fdbsql.keytab ]; then
 
     KRB_REALM=DOCKER.LOCAL
-    FDBSQL_PRINC=postgres/krbsql.docker.local
+    FDBSQL_PRINC=fdbsql/krbsql.docker.local
     FDBSQL_KEYTAB=/etc/foundationdb/sql/fdbsql.keytab
     REST_PRINC=HTTP/krbsql.docker.local
     REST_KEYTAB=/etc/foundationdb/sql/rest.keytab
