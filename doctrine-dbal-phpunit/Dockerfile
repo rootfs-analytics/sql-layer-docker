@@ -11,8 +11,7 @@ RUN php </tmp/installer
 RUN mv composer.phar /usr/local/bin/composer
 
 RUN apt-get -y install git
-#RUN git clone https://github.com/FoundationDB/sql-layer-adapter-doctine-dbal
-RUN git clone -b version-update https://github.com/MMcM/sql-layer-adapter-doctine-dbal
+RUN git clone https://github.com/FoundationDB/sql-layer-adapter-doctine-dbal
 
 RUN cd sql-layer-adapter-doctine-dbal && composer update && rm -rf vendor/doctrine && composer update --prefer-source && cd vendor/doctrine/dbal && composer update
 
