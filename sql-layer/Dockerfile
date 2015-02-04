@@ -6,7 +6,7 @@ MAINTAINER "fdb-boston@foundationdb.com"
 
 # ADD http://landfill.boston.foundationdb.com/share/packages/latest/fdb-sql-layer.deb /tmp/
 # ADD fdb-sql-layer.deb /tmp/
-ADD https://foundationdb.com/downloads/I_accept_the_FoundationDB_Community_License_Agreement/sql-layer/2.0.latest/fdb-sql-layer_2.0.latest-1_all.deb /tmp/fdb-sql-layer.deb
+ADD https://foundationdb.com/downloads/I_accept_the_FoundationDB_Community_License_Agreement/sql-layer/2.1.0/fdb-sql-layer_2.1.0-1_all.deb /tmp/fdb-sql-layer.deb
 RUN dpkg -i /tmp/fdb-sql-layer.deb
 
 RUN echo >>/etc/foundationdb/sql/server.properties
